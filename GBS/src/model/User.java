@@ -108,6 +108,7 @@ public class User
 		 return output; 
 	 } 
 	 
+	 //Update
 	 public String updateUser(String ID, String fname, String lname, String pno, String email, String pw)
 	 { 
 		 String output = ""; 
