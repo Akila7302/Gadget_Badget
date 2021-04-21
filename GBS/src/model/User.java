@@ -20,7 +20,7 @@ public class User
 		return con; 
 	 }
 	
-	 public String insertUser(String fname, String lname, String pno, String email, String pw) 
+	 public String insertUser(String fname, String lname, String pno, String email,String type, String pw) 
 	 { 
 		 String output = ""; 
 		 try
@@ -30,8 +30,8 @@ public class User
 			 {return "Error while connecting to the database for inserting."; }
 			 
 			 // create a prepared statement
-			 String query = " insert into user(`userId`,`firstName`,`lastName`,`phoneNo`,`email`,`password`)"
-					 + " values (?, ?, ?, ?, ?, ?)"; 
+			 String query = " insert into user(`userId`,`firstName`,`lastName`,`phoneNo`,`email`,`type`,`password`)"
+					 + " values (?, ?, ?, ?, ?,?,?)"; 
 			 
 			 PreparedStatement preparedStmt = con.prepareStatement(query);
 			 
@@ -41,7 +41,8 @@ public class User
 			 preparedStmt.setString(3, lname); 
 			 preparedStmt.setString(4, pno); 
 			 preparedStmt.setString(5, email);
-			 preparedStmt.setString(6, pw);
+			 preparedStmt.setString(6, type);
+			 preparedStmt.setString(7, pw);
 			 
 			 // execute the statement3
 			 preparedStmt.execute(); 
@@ -67,9 +68,11 @@ public class User
 			 {return "Error while connecting to the database for reading."; }
 			 
 			 // Prepare the html table to be displayed
-			 output = "<table border='1'><tr><th>First Name</th><th>Last Name</th>" +
-					 "<th>Phone Number</th>" + 
+			 output = "<table border='1'><tr><th>ID</th><th>First Name</th>"+
+					 "<th>Last Name</th>"+
+					 "<th>Phone Number</th>"+ 
 					 "<th>Email</th>" +
+					 "<th>Type</th>" +
 					 "<th>Password</th>" +
 					 "<th>Update</th><th>Remove</th></tr>"; 
 	 
@@ -84,14 +87,17 @@ public class User
 				 String firstName = rs.getString("firstName"); 
 				 String lastName = rs.getString("lastName"); 
 				 String phoneNo = rs.getString("phoneNo"); 
-				 String email = rs.getString("email"); 
+				 String email = rs.getString("email");
+				 String type = rs.getString("type");
 				 String password = rs.getString("password"); 
 				 
 				 // Add into the html table
-				 output += "<tr><td>" + firstName + "</td>"; 
+				 output += "<tr><td>" + userId + "</td>";
+				 output += "<td>" + firstName + "</td>"; 
 				 output += "<td>" + lastName + "</td>"; 
 				 output += "<td>" + phoneNo + "</td>"; 
 				 output += "<td>" + email + "</td>"; 
+				 output += "<td>" + type + "</td>"; 
 				 output += "<td>" + password + "</td>";
 				 // buttons
 				 output += "<td><input name='btnUpdate' type='button' value='Update' class='btn btn-secondary'></td>"  + "<td><form method='post' action='items.jsp'>" + "<input name='btnRemove' type='submit' value='Remove'  class='btn btn-danger'>" + "<input name='userId' type='hidden' value='" + userId  + "'>" + "</form></td></tr>"; 
@@ -109,7 +115,7 @@ public class User
 	 } 
 	 
 	 //Update
-	 public String updateUser(String ID, String fname, String lname, String pno, String email, String pw)
+	 public String updateUser(String ID, String fname, String lname, String pno, String email, String type, String pw)
 	 { 
 		 String output = ""; 
 		 try
@@ -119,7 +125,7 @@ public class User
 			 {return "Error while connecting to the database for updating."; } 
 			 
 			 // create a prepared statement
-			 String query = "UPDATE user SET firstName=?,lastName=?,phoneNo=?,email=?,password=? WHERE userId=?";
+			 String query = "UPDATE user SET firstName=?,lastName=?,phoneNo=?,email=?,type=?,password=? WHERE userId=?";
 
 			 PreparedStatement preparedStmt = con.prepareStatement(query); 
 			 
@@ -127,8 +133,9 @@ public class User
 			 preparedStmt.setString(1, fname); 
 			 preparedStmt.setString(2, lname); 
 			 preparedStmt.setString(3, pno); 
-			 preparedStmt.setString(4, email); 
-			 preparedStmt.setString(5, pw); 
+			 preparedStmt.setString(4, email);
+			 preparedStmt.setString(5, type);
+			 preparedStmt.setString(6, pw); 
 			 
 			 preparedStmt.setInt(6, Integer.parseInt(ID)); 
 			 

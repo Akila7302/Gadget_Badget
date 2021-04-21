@@ -29,10 +29,11 @@ import org.jsoup.nodes.Document;
 			 @FormParam("lastName") String lastName,
 			 @FormParam("phoneNo") String phoneNo,
 			 @FormParam("email") String email,
+			 @FormParam("type") String type,
 			 @FormParam("password") String password)
 			 
 		{
-			 String output = userObj.insertUser(firstName,lastName,phoneNo,email,password);
+			 String output = userObj.insertUser(firstName,lastName,phoneNo,email,type,password);
 			return output;
 		}
 		
@@ -45,7 +46,9 @@ import org.jsoup.nodes.Document;
 				 @FormParam("lastName") String lastName,
 				 @FormParam("phoneNo") String phoneNo,
 				 @FormParam("email") String email,
-				 @FormParam("password") String password, @FormParam("userId") String userId)
+				 @FormParam("type") String type,
+				 @FormParam("password") String password)
+//@FormParam("userId") String userId,
 		{
 			//Convert the input string to a JSON object
 //			 JsonObject userObject = new JsonParser().parse(userData).getAsJsonObject();
@@ -59,7 +62,7 @@ import org.jsoup.nodes.Document;
 //			 String email = userObject.get("email").getAsString();
 //			 String password = userObject.get("password").getAsString();
 					
-			 String output = userObj.updateUser(userId, firstName, lastName, phoneNo,email,password);
+			 String output = userObj.updateUser(userId, firstName, lastName, phoneNo,email,type,password);
 		
 			 return output;
 		}
