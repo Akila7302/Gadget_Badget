@@ -129,7 +129,7 @@ public class product
 		 } 
 		 catch (Exception e) 
 		 { 
-		 output = "Error while updating the products."; 
+		 output = "Error while  updating the products."; 
 		 System.err.println(e.getMessage()); 
 		 } 
 		 return output; 
@@ -151,7 +151,7 @@ public class product
 		 // execute the statement
 		 preparedStmt.execute(); 
 		 con.close(); 
-		 output = "Deleted successfully"; 
+		 output = " Deleted successfully "; 
 		 } 
 		 catch (Exception e) 
 		 { 
