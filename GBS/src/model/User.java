@@ -19,7 +19,7 @@ public class User
 		{e.printStackTrace();} 
 		return con; 
 	 }
-	
+	 //insert
 	 public String insertUser(String fname, String lname, String pno, String email,String type, String pw) 
 	 { 
 		 String output = ""; 
