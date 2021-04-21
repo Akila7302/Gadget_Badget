@@ -42,13 +42,14 @@ import org.jsoup.nodes.Document;
 		@Path("/")
 		@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 		@Produces(MediaType.TEXT_PLAIN)
-		public String updateUser(@FormParam("firstName") String firstName,
+		public String updateUser(@FormParam("userId") String userId,
+				 @FormParam("firstName") String firstName,
 				 @FormParam("lastName") String lastName,
 				 @FormParam("phoneNo") String phoneNo,
 				 @FormParam("email") String email,
 				 @FormParam("type") String type,
 				 @FormParam("password") String password)
-//@FormParam("userId") String userId,
+                 
 		{
 			//Convert the input string to a JSON object
 //			 JsonObject userObject = new JsonParser().parse(userData).getAsJsonObject();
@@ -62,7 +63,7 @@ import org.jsoup.nodes.Document;
 //			 String email = userObject.get("email").getAsString();
 //			 String password = userObject.get("password").getAsString();
 					
-			 String output = userObj.updateUser(userId, firstName, lastName, phoneNo,email,type,password);
+			 String output = userObj.updateUser(userId,firstName, lastName, phoneNo,email,type,password);
 		
 			 return output;
 		}

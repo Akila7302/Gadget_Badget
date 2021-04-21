@@ -137,7 +137,7 @@ public class User
 			 preparedStmt.setString(5, type);
 			 preparedStmt.setString(6, pw); 
 			 
-			 preparedStmt.setInt(6, Integer.parseInt(ID)); 
+			 preparedStmt.setInt(7, Integer.parseInt(ID)); 
 			 
 			 // execute the statement
 			 preparedStmt.execute(); 
@@ -152,7 +152,7 @@ public class User
 		 return output; 
 	 }
 	
-	 
+	 //delete
 	 public String deleteUser(String userId) 
 	 { 
 		 String output = ""; 
