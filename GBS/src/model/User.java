@@ -181,5 +181,40 @@ public class User
 		 } 
 		 return output; 
 	 }
+	 
+	 //entered users logging part 
+	 public String getUser(String email,String password)
+     {
+         String output = "";
+         try
+         {
+             Connection con = connect();
+        
+             //create a prepard statment
+         String query = "select * from user where email = '" + email +"' AND password = '" + password + "'";
+         
+         Statement stmt = con.createStatement();
+         ResultSet rs = stmt.executeQuery(query);
+        
+         if(rs.next()==true)
+         {
+        	 String type = rs.getString("type");
+        	 System.out.println(type);
+        	 output+="Loging as"+ " "+type;
+            
+         }
+         else {
+        	 output+="No user matching type";
+         }
+         con.close();
+        
+     }
+     catch (Exception e)
+     {
+         output = "Error while reading Users.";
+         System.err.println(e.getMessage());
+     }
+         return output;
+     }
 
 }

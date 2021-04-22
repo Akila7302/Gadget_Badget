@@ -83,6 +83,33 @@ import org.jsoup.nodes.Document;
 		return output; 
 		}
 
+		
+		/*@GET
+	    @Path("/Email/{email}/Password/{password}")
+		@Consumes(MediaType.APPLICATION_JSON)
+	    @Produces(MediaType.TEXT_HTML)
+	    public String userLogin(String userData)
+		{
+			JsonObject userobject = new JsonParser().parse(userData).getAsJsonObject();
+			
+			String email = userobject.get("email").getAsString();
+			String password = userobject.get("password").getAsString();
+			
+			String output = userObj.getUser(email,password);
+			return output;
+			
+	    }*/
+		
+		@GET
+	    @Path("/Email/{email}/Password/{password}")
+		//@Consumes(MediaType.APPLICATION_JSON)
+	    @Produces(MediaType.TEXT_HTML)
+	    public String userLogin(@PathParam("email") String email,
+				@PathParam("password") String password) {
+			
+				return userObj.getUser(email,password);
+			
+	    }
 	}
 
 
