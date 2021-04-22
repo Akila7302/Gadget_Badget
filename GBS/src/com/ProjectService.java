@@ -41,30 +41,22 @@ public class ProjectService {
 		return output;
 	}
 	
-	//Update
 	@PUT
 	@Path("/")
-	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.TEXT_PLAIN)
-	public String updateproject(@FormParam("project_id") String project_id,
-			@FormParam("project_title") String project_title,
-			 @FormParam("p_description") String p_description,
-			 @FormParam("inventor_name") String inventor_name,
-			 @FormParam("delivery_time") String delivery_time,
-			 @FormParam("project_cost") String project_cost)
-             
-	{
-		//Convert the input string to a JSON object
-//		 JsonObject projectObject = new JsonParser().parse(projectData).getAsJsonObject();
+	public String updateproject(String projectData) {
 		
+		//Convert the input string to a JSON object
+		 JsonObject projectObject = new JsonParser().parse(projectData).getAsJsonObject();
+	
 		 //Read the values from the JSON object
-		 
-//		 String project_id = projectObject.get("project_id").getAsString();	
-//		 String firstName = projectObject.get("project_title").getAsString();
-//		 String lastName = projectObject.get("p_description").getAsString();
-//		 String phoneNo = projectObject.get("inventor_name").getAsString();
-//		 String email = projectObject.get("delivery_time").getAsString();
-//		 String password = projectObject.get("project_cost").getAsString();
+		 String project_id = projectObject.get("project_id").getAsString();	
+		 String project_title = projectObject.get("project_title").getAsString();
+		 String p_description = projectObject.get("p_description").getAsString();
+		 String inventor_name = projectObject.get("inventor_name").getAsString();
+		 String delivery_time = projectObject.get("delivery_time").getAsString();
+		 String project_cost = projectObject.get("project_cost").getAsString();
 				
 		 String output = projectObj.updateProject(project_id,project_title, p_description, inventor_name,delivery_time,project_cost);
 	

@@ -18,6 +18,7 @@ public class ProjectModel {
 			return con;
 	}
 
+	//Insert project
 	public String insertProject(String ptitle, String pdesc, String iname, String dtime, String pcost)
 	{
 		String output = "";
@@ -41,7 +42,7 @@ public class ProjectModel {
 			preparedStmt.setString(3, pdesc);
 			preparedStmt.setString(4, iname);
 			preparedStmt.setString(5, dtime);
-			preparedStmt.setDouble(4, Double.parseDouble(pcost));
+			preparedStmt.setDouble(6, Double.parseDouble(pcost));
 			
 			
 			// execute the statement
@@ -58,6 +59,7 @@ public class ProjectModel {
 	}
 
 	
+	//Read project details
 	public String readProjects()
 	{
 		
@@ -75,9 +77,10 @@ public class ProjectModel {
 					"<th>Project Title</th>" +
 					"<th>Description</th>" +
 					"<th>Inventor</th>" +
-					"<th>delivery Time</th>" +
+					"<th>Delivery Time</th>" +
 					"<th>Cost</th>" +
-					"<th>Update</th><th>Remove</th>" +
+					"<th>Update</th>"+
+					"<th>Remove</th>" +
 					"</tr>";
 			
 			String query = "select * from projects";
@@ -125,6 +128,7 @@ public class ProjectModel {
 	}
 
 
+	//Update project
 	public String updateProject(String ID, String ptitle, String pdesc, String iname, String dtime, String pcost)
 	{
 		String output = "";
@@ -163,6 +167,7 @@ public class ProjectModel {
 		return output;
 	}
 
+	//Delete project
 	public String deleteProject(String project_id)
 	{
 		String output = "";
