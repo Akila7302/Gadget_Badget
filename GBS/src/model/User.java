@@ -200,7 +200,7 @@ public class User
          {
         	 String type = rs.getString("type");
         	 System.out.println(type);
-        	 output+="Loging as"+ " "+type;
+        	 output+="Loging Succsessful!";
             
          }
          else {
