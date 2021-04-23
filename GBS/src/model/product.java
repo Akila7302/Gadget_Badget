@@ -4,6 +4,7 @@ import java.sql.*;
 
 
 public class product 
+
 { //A common method to connect to the DB
 	private Connection connect() 
 	 { 
@@ -20,8 +21,9 @@ public class product
 		 return con; 
 	 } 
 	
-	public String insertItem(String name, String owner,String desc, String price,String email ) 
-	 { 
+	public String insertItem(String name, String owner,String description, String price,String email ) 
+	
+	{ 
 		 String output = ""; 
 		 try
 		 { 
@@ -35,7 +37,7 @@ public class product
 		 preparedStmt.setInt(1, 0); 
 		 preparedStmt.setString(2, name); 
 		 preparedStmt.setString(3, owner); 
-		 preparedStmt.setString(4, desc); 
+		 preparedStmt.setString(4, description); 
 		 preparedStmt.setDouble(5, Double.parseDouble(price)); 
 		 preparedStmt.setString(6, email); 
 		// execute the statement3
@@ -52,6 +54,7 @@ public class product
 	 } 
 	
 	public String readItems() 
+	
 	{ 
 		 String output = ""; 
 		 try
@@ -61,7 +64,7 @@ public class product
 		 {return "Error while connecting to the database for reading."; } 
 		 // Prepare the html table to be displayed
 		 output = "<table border='1'><tr><th>product_name</th><th>owner</th>" +
-				 "<th>Item Description</th>" + 
+				 "<th>Product Description</th>" + 
 				 "<th>price</th>"+
 				 "<th>email</th>"+
 		 "<th>Update</th><th>Remove</th></tr>"; 
@@ -71,7 +74,9 @@ public class product
 		 ResultSet rs = stmt.executeQuery(query); 
 		 // iterate through the rows in the result set
 		 while (rs.next()) 
+		
 		 { 
+			 
 		 String product_id = Integer.toString(rs.getInt("product_id")); 
 		 String product_name= rs.getString("product_name"); 
 		 String owner = rs.getString("owner"); 
@@ -103,8 +108,14 @@ public class product
 		 return output; 
 	 }
 	
+	
+	
+	
+	
 	public String updateItem(String product_id, String product_name, String owner, String description ,String price, String email)
-	 { 
+	          
+	
+	{ 
 		 String output = ""; 
 		 try
 		 { 
@@ -112,7 +123,7 @@ public class product
 		 if (con == null) 
 		 {return "Error while connecting to the database for updating."; } 
 		 // create a prepared statement
-		 String query = "UPDATE product SET  product_name=? , owner=?, description = ? , price=?, description=? WHERE  product_id=?"; 
+		 String query = "UPDATE product SET  product_name=? , owner=?, description = ?, price=?, email=? WHERE  product_id=?"; 
 		 PreparedStatement preparedStmt = con.prepareStatement(query); 
 		 // binding values
 		 
@@ -136,7 +147,9 @@ public class product
 	 } 
 	
 	public String deleteItem(String product_id) 
-	 { 
+	
+	
+	{ 
 		 String output = ""; 
 		 try
 		 { 
@@ -159,6 +172,6 @@ public class product
 		 System.err.println(e.getMessage()); 
 		 } 
 		 return output; 
- } 
+   } 
 	
 } 
