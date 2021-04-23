@@ -13,7 +13,7 @@ import org.jsoup.*;
 import org.jsoup.parser.*;
 import org.jsoup.nodes.Document; 
 
-@Path("/carts") 
+@Path("/Carts") 
 public class CartService {
 		Cart cartObj = new Cart();
 		
@@ -29,15 +29,15 @@ public class CartService {
 		@Path("/") 
 		@Consumes(MediaType.APPLICATION_FORM_URLENCODED) 
 		@Produces(MediaType.TEXT_PLAIN) 
-		public String insertItem(@FormParam("project_id") String project_id, 
-		 @FormParam("project_name") String project_name, 
+		public String insertItem(@FormParam("productId") String productId, 
+		 @FormParam("productName") String productName, 
 		 @FormParam("owner") String owner, 
 		 @FormParam("description") String description, 
 		@FormParam("price") String price,
 		@FormParam("email") String email)
 		{ 
 			
-			String output = cartObj.insertItem(project_id, project_name, owner, description, price, email); 
+			String output = cartObj.insertItem(productId, productName, owner, description, price, email); 
 			return output; 
 			
 		}

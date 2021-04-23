@@ -8,7 +8,7 @@ import java.sql.Statement;
 
 public class Cart {
 
-	private Connection connect(){
+	 private Connection connect(){
 
 	 Connection con = null;
 	 try{ 
@@ -16,46 +16,44 @@ public class Cart {
 		 Class.forName("com.mysql.jdbc.Driver");
 
 	 //Provide the correct details: DBServer/DBName, username, password
-	 	con = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/paf1", "root", ""); 
-	 }
-	 catch (Exception e)
-	 {e.printStackTrace();}
-	 return con;
-	 } 
+		 con = DriverManager.getConnection("jdbc:mysql://localhost:3306/loging", "root", "123456");
+		 }
+		 catch (Exception e)
+		 {e.printStackTrace();}
+		 return con;
+		 } 
 	
-	public String insertItem(String project_id,String project_name, String owner, String description, String price ,String email) 
+	 public String insertItem(String proId,String proName, String owner, String description, String price ,String email) 
 	 { 
 	 String output = ""; 
-	 try
-	 { 
-	 Connection con = connect(); 
-	 if (con == null) 
-	 {return "Error while connecting to the database for inserting."; } 
-	 // create a prepared statement
-	 String query = " insert into cart (`project_id`,`project_name`,`owner`,`description`,`price`,`email`)"+ " values (?, ?, ?, ?, ?, ?)"; 
-	 PreparedStatement preparedStmt = con.prepareStatement(query); 
-	 // binding values
-	 preparedStmt.setInt(1, Integer.parseInt(project_id)); 
-	 preparedStmt.setString(2, project_name); 
-	 preparedStmt.setString(3, owner); 
-	 preparedStmt.setString(4, description); 
-	 preparedStmt.setDouble(5, Double.parseDouble(price)); 
-	 preparedStmt.setString(6, email); 
-	// execute the statement
-	 preparedStmt.execute(); 
-	 con.close(); 
-	 output = "Inserted successfully"; 
-	 } 
-	 catch (Exception e) 
-	 { 
-	 output = "Error while inserting the item."; 
-	 System.err.println(e.getMessage()); 
-	 } 
+		 try
+		 { 
+		 Connection con = connect(); 
+		 if (con == null) 
+		 {return "Error while connecting to the database for inserting."; } 
+		 // create a prepared statement
+		 String query = " insert into cart (`productId`,`productName`,`owner`,`description`,`price`,`email`)"+ " values (?, ?, ?, ?, ?, ?)"; 
+		 PreparedStatement preparedStmt = con.prepareStatement(query); 
+		 // binding values
+		 preparedStmt.setInt(1, Integer.parseInt(proId)); 
+		 preparedStmt.setString(2, proName); 
+		 preparedStmt.setString(3, owner); 
+		 preparedStmt.setString(4, description); 
+		 preparedStmt.setDouble(5, Double.parseDouble(price)); 
+		 preparedStmt.setString(6, email); 
+		// execute the statement
+		 preparedStmt.execute(); 
+		 con.close(); 
+		 output = "Inserted successfully"; 
+		 } 
+		 catch (Exception e) 
+		 { 
+		 output = "Error while inserting the item."; 
+		 System.err.println(e.getMessage()); 
+		 } 
 	 return output; 
 	 } 
 		
-	
-	
 	public String readItems(){
 
 
@@ -82,16 +80,16 @@ public class Cart {
 			 // iterate through the rows in the result set
 			 while (rs.next()){
 				 
-				 String project_id = Integer.toString(rs.getInt("project_id"));
-				 String project_name = rs.getString("project_name");
+				 String productId = Integer.toString(rs.getInt("productId"));
+				 String productName = rs.getString("productName");
 				 String owner = rs.getString("owner");
 				 String description = rs.getString("description");
 				 String price = Double.toString(rs.getDouble("price"));
 				 String email = rs.getString("email");
 				 
 				 // Add into the html table
-				 output += "<tr><td>" + project_id + "</td>";
-				 output += "<td>" + project_name + "</td>";
+				 output += "<tr><td>" + productId + "</td>";
+				 output += "<td>" + productName + "</td>";
 				 output += "<td>" + owner + "</td>";
 				 output += "<td>" + description + "</td>";
 				 output += "<td>" + price + "</td>";
@@ -100,7 +98,7 @@ public class Cart {
 				 // buttons
 				 output += "<td><input name='btnUpdate' type='button' value='Update'class='btn btn-secondary'></td>"
 						 + "<td><form method='post' action='items.jsp'>"+"<input name='btnRemove' type='submit' value='Remove'class='btn btn-danger'>"
-						 + "<input name='project_id' type='hidden' value='" + project_id
+						 + "<input name='productId' type='hidden' value='" + productId
 						 + "'>" + "</form></td></tr>";
 			 }
 			 con.close();
@@ -114,7 +112,7 @@ public class Cart {
 		 return output;
 	 } 
 	
-	public String updateItem(String project_id ,String project_name, String owner, String description, String price, String email){
+	public String updateItem(String proId ,String proName, String owner, String description, String price, String email){
 	 
 		String output = "";
 	 
@@ -127,18 +125,18 @@ public class Cart {
 			 }
 			 
 			 // create a prepared statement
-			 String query = "UPDATE cart SET project_name=?,owner=?,description=?,price=?,email=? WHERE project_id=?";
+			 String query = "UPDATE cart SET productName=?,owner=?,description=?,price=?,email=? WHERE productId=?";
 			 
 			 PreparedStatement preparedStmt = con.prepareStatement(query);
 			 
 			 // binding values
 			 
-			 preparedStmt.setString(1, project_name);
+			 preparedStmt.setString(1, proName);
 			 preparedStmt.setString(2, owner);
 			 preparedStmt.setString(3, description);
 			 preparedStmt.setDouble(4, Double.parseDouble(price));
 			 preparedStmt.setString(5, email);
-			 preparedStmt.setInt(6,Integer.parseInt(project_id));
+			 preparedStmt.setInt(6,Integer.parseInt(proId));
 			 
 			 // execute the statement
 			 preparedStmt.execute();
@@ -152,7 +150,7 @@ public class Cart {
 		 return output;
 	} 
 	
-	public String deleteItem(String project_id){
+	public String deleteItem(String productId){
 	 
 		 String output = "";
 		 
@@ -165,11 +163,11 @@ public class Cart {
 			 }
 			 
 			 // create a prepared statement
-			 String query = "delete from cart where project_id=?";
+			 String query = "delete from cart where productId=?";
 			 PreparedStatement preparedStmt = con.prepareStatement(query);
 			 
 			 // binding values
-			 preparedStmt.setInt(1, Integer.parseInt(project_id));
+			 preparedStmt.setInt(1, Integer.parseInt(productId));
 			 
 			 // execute the statement
 			 preparedStmt.execute();
