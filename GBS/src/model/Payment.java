@@ -99,7 +99,7 @@ public class Payment {
 				return "Error while connecting to the database for updating.";
 			}
 			// create a prepared statement
-			String query = "UPDATE items SET pMethod=?,itemName=?,itemPrice=?,email=? WHERE PID=?";
+			String query = "UPDATE payment SET pMethod=?,itemName=?,itemPrice=?,email=? WHERE PID=?";
 			PreparedStatement preparedStmt = con.prepareStatement(query);
 			// binding values
 			preparedStmt.setString(1, method);

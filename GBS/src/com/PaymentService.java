@@ -24,12 +24,17 @@ public class PaymentService {
 	
 	Payment payObj = new Payment();
 	
+	//Retrieve
+	
 	@GET
 	@Path("/")
 	@Produces(MediaType.TEXT_HTML)
 	public String readItems() {
 		return payObj.readPayments();
 	}
+	
+	
+	//Insert
 	
 	@POST
 	@Path("/")
@@ -41,6 +46,8 @@ public class PaymentService {
 		String output = payObj.insertPay(pMethod, itemName, itemPrice, email);
 		return output;
 	}
+	
+	//Update
 	
 	@PUT
 	@Path("/")
@@ -65,6 +72,8 @@ public class PaymentService {
 		return output;
 	}
 
+	//Delete
+	
 	@DELETE
 	@Path("/")
 	@Consumes(MediaType.APPLICATION_XML)

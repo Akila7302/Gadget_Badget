@@ -21,8 +21,10 @@ import model.Fund;
 
 @Path("/Funds")
 public class FundService {
-	
-Fund fundObj = new Fund();
+
+	Fund fundObj = new Fund();
+
+	//Retrieve
 	
 	@GET
 	@Path("/")
@@ -31,6 +33,8 @@ Fund fundObj = new Fund();
 		return fundObj.readFunds();
 	}
 	
+	//Insert
+
 	@POST
 	@Path("/")
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
@@ -41,6 +45,8 @@ Fund fundObj = new Fund();
 		String output = fundObj.insertFund(project, cName, fundAmount);
 		return output;
 	}
+
+	//Upadte
 	
 	@PUT
 	@Path("/")
@@ -58,12 +64,13 @@ Fund fundObj = new Fund();
 		String project = fundObject.get("project").getAsString();
 		String cName = fundObject.get("cName").getAsString();
 		String fundAmount = fundObject.get("fundAmount").getAsString();
-		
 
 		String output = fundObj.updateFund(FID, project, cName, fundAmount);
 
 		return output;
 	}
+	
+	//Delete
 
 	@DELETE
 	@Path("/")

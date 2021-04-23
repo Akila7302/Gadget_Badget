@@ -3,7 +3,7 @@ package model;
 import java.sql.*;
 
 public class Fund {
-	
+
 	public Connection connect() {
 		Connection con = null;
 
@@ -18,6 +18,8 @@ public class Fund {
 
 		return con;
 	}
+
+	//Retrieve
 	
 	public String readFunds() {
 		String output = "";
@@ -38,13 +40,12 @@ public class Fund {
 				String project = rs.getString("project");
 				String cName = rs.getString("cName");
 				String fundAmount = Double.toString(rs.getDouble("fundAmount"));
-				
+
 				// Add a row into the html table
 				output += "<tr><td>" + project + "</td>";
 				output += "<td>" + cName + "</td>";
 				output += "<td>" + fundAmount + "</td>";
 
-				
 				// buttons
 				output += "<td><input name='btnUpdate' " + " type='button' value='Update' class='btn btn-danger'></td>"
 						+ "<td><form method='post' action=''>" + "<input name='btnRemove' "
@@ -62,6 +63,8 @@ public class Fund {
 		return output;
 	}
 
+	//Insert
+	
 	public String insertFund(String project, String name, String fund) {
 		String output = "";
 		try {
@@ -70,15 +73,13 @@ public class Fund {
 				return "Error while connecting to the database";
 			}
 			// create a prepared statement
-			String query = " insert into fund(`FID`,`project`,`cName`,`fundAmount`)"
-					+ " values (?, ?, ?, ?)";
+			String query = " insert into fund(`FID`,`project`,`cName`,`fundAmount`)" + " values (?, ?, ?, ?)";
 			PreparedStatement preparedStmt = con.prepareStatement(query);
 			// binding values
 			preparedStmt.setInt(1, 0);
 			preparedStmt.setString(2, project);
 			preparedStmt.setString(3, name);
 			preparedStmt.setDouble(4, Double.parseDouble(fund));
-			
 
 			// execute the statement
 			preparedStmt.execute();
@@ -90,6 +91,8 @@ public class Fund {
 		}
 		return output;
 	}
+	
+	//Update
 
 	public String updateFund(String ID, String project, String name, String fund) {
 		String output = "";
@@ -99,7 +102,7 @@ public class Fund {
 				return "Error while connecting to the database for updating.";
 			}
 			// create a prepared statement
-			String query = "UPDATE items SET project=?,cName=?,fundAmount=? WHERE FID=?";
+			String query = "UPDATE fund SET project=?,cName=?,fundAmount=? WHERE FID=?";
 			PreparedStatement preparedStmt = con.prepareStatement(query);
 			// binding values
 			preparedStmt.setString(1, project);
@@ -116,6 +119,8 @@ public class Fund {
 		}
 		return output;
 	}
+	
+	//Delete
 
 	public String deleteFund(String FID) {
 		String output = "";
