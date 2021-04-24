@@ -1,34 +1,37 @@
 package model;
 
 import java.sql.*;
+
 public class ProjectModel {
+	
 	//A common method to connect to the DB
-	private Connection connect()
-	{
+	private Connection connect() {
 		Connection con = null;
 		
-		try
-		{
+		try {
+			
 			Class.forName("com.mysql.jdbc.Driver");
 			
 			con = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/projects_db", "root", "root");
 		}
-		catch (Exception e)
-			{e.printStackTrace();}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
 			return con;
-	}
+		}
 
 	//Insert project
-	public String insertProject(String ptitle, String pdesc, String iname, String dtime, String pcost)
-	{
+	public String insertProject(String ptitle, String pdesc, String iname, String dtime, String pcost) {
+		
 		String output = "";
 		
-		try
-		{
+		try {
+			
 			Connection con = connect();
 			
-			if (con == null)
-			{return "Error while connecting to the database for inserting."; }
+			if (con == null) {
+				return "Error while connecting to the database for inserting."; 
+			 }
 			
 			// create a prepared statement
 			String query = " insert into projects(`project_id`,`project_title`,`p_description`,`inventor_name`,`delivery_time`,`project_cost`)"
@@ -51,7 +54,7 @@ public class ProjectModel {
 			
 			output = "Inserted successfully";
 		}
-		catch (Exception e){
+		catch (Exception e) {
 			output = "Error while inserting the project.";
 			System.err.println(e.getMessage());
 		}
@@ -60,28 +63,28 @@ public class ProjectModel {
 
 	
 	//Read project details
-	public String readProjects()
-	{
+	public String readProjects() {
 		
 		String output = "";
 		
-		try
-		{
+		try {
+			
 			Connection con = connect();
 			
-			if (con == null)
-			{return "Error while connecting to the database for reading."; }
-			
-			// Prepare the html table to be displayed
+			if (con == null) {
+				return "Error while connecting to the database for reading."; 	
+			}
+
+		// Prepare the html table to be displayed
 			output = "<table border='1'><tr>" +
-					"<th>Project Title</th>" +
-					"<th>Description</th>" +
-					"<th>Inventor</th>" +
-					"<th>Delivery Time</th>" +
-					"<th>Cost</th>" +
-					"<th>Update</th>"+
-					"<th>Remove</th>" +
-					"</tr>";
+						"<th>Project Title</th>" +
+						"<th>Description</th>" +
+						"<th>Inventor</th>" +
+						"<th>Delivery Time</th>" +
+						"<th>Cost</th>" +
+						"<th>Update</th>"+
+						"<th>Remove</th>" +
+						"</tr>";
 			
 			String query = "select * from projects";
 			
@@ -89,8 +92,7 @@ public class ProjectModel {
 			ResultSet rs = stmt.executeQuery(query);
 			
 			// iterate through the rows in the result set
-			while (rs.next())
-			{
+			while (rs.next()) {
 				String project_id = Integer.toString(rs.getInt("project_id"));
 				String project_title = rs.getString("project_title");
 				String p_description = rs.getString("p_description");
@@ -119,7 +121,7 @@ public class ProjectModel {
 			// Complete the html table
 			output += "</table>";
 		}
-		catch (Exception e){
+		catch (Exception e) {
 			output = "Error while reading the projects.";
 			System.err.println(e.getMessage());
 		}
@@ -129,16 +131,16 @@ public class ProjectModel {
 
 
 	//Update project
-	public String updateProject(String ID, String ptitle, String pdesc, String iname, String dtime, String pcost)
-	{
+	public String updateProject(String ID, String ptitle, String pdesc, String iname, String dtime, String pcost) {
 		String output = "";
 		
-		try
-		{
+		try {
+			
 			Connection con = connect();
 			
-			if (con == null)
-			{return "Error while connecting to the database for updating."; }
+			if (con == null) {
+				return "Error while connecting to the database for updating."; 
+			}
 			
 			// create a prepared statement
 			String query = "UPDATE projects SET project_title=?,p_description=?,inventor_name=?,delivery_time=?,project_cost=? WHERE project_id=?";
@@ -158,8 +160,7 @@ public class ProjectModel {
 			con.close();
 			output = "Updated successfully";
 		}
-		catch (Exception e)
-		{
+		catch (Exception e) {
 			output = "Error while updating the project.";
 			System.err.println(e.getMessage());
 		}
@@ -168,16 +169,16 @@ public class ProjectModel {
 	}
 
 	//Delete project
-	public String deleteProject(String project_id)
-	{
+	public String deleteProject(String project_id) {
 		String output = "";
 		
-		try
-		{
+		try {
+			
 			Connection con = connect();
 			
-			if (con == null)
-			{return "Error while connecting to the database for deleting."; }
+			if (con == null) {
+				return "Error while connecting to the database for deleting."; 
+			}
 			
 			// create a prepared statement
 			String query = "delete from projects where project_id=?";
@@ -193,14 +194,12 @@ public class ProjectModel {
 			
 			output = "Deleted successfully";
 		}
-		catch (Exception e)
-		{
+		catch (Exception e) {
 			output = "Error while deleting the project.";
 			System.err.println(e.getMessage());
 		}
 			return output;
 		}
-	
 
 
 
