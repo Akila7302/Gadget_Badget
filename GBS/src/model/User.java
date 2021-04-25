@@ -80,7 +80,7 @@ public class User
 			 Statement stmt = con.createStatement(); 
 			 ResultSet rs = stmt.executeQuery(query); 
 			 
-			 // iterate through the rows in the result set
+		
 			 while (rs.next()) 
 			 { 
 				 String userId = Integer.toString(rs.getInt("userId")); 
@@ -91,7 +91,7 @@ public class User
 				 String type = rs.getString("type");
 				 String password = rs.getString("password"); 
 				 
-				 // Add into the html table
+				 // Add into the data  to html table
 				 output += "<tr><td>" + userId + "</td>";
 				 output += "<td>" + firstName + "</td>"; 
 				 output += "<td>" + lastName + "</td>"; 
@@ -103,6 +103,7 @@ public class User
 				 output += "<td><input name='btnUpdate' type='button' value='Update' class='btn btn-secondary'></td>"  + "<td><form method='post' action='items.jsp'>" + "<input name='btnRemove' type='submit' value='Remove'  class='btn btn-danger'>" + "<input name='userId' type='hidden' value='" + userId  + "'>" + "</form></td></tr>"; 
 			 } 
 			 con.close(); 
+			 
 			 // Complete the html table
 			 output += "</table>"; 
 		 } 
@@ -198,13 +199,13 @@ public class User
         
          if(rs.next()==true)
          {
-        	 String type = rs.getString("type");
-        	 System.out.println(type);
+        	//String type = rs.getString("type");
+        	// System.out.println(type);
         	 output+="Loging Succsessful!";
             
          }
          else {
-        	 output+="No user matching type";
+        	 output+="No matching user";
          }
          con.close();
         

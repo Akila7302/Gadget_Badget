@@ -29,37 +29,42 @@ public class CartService {
 		@Path("/") 
 		@Consumes(MediaType.APPLICATION_FORM_URLENCODED) 
 		@Produces(MediaType.TEXT_PLAIN) 
-		public String insertItem(@FormParam("productId") String productId, 
-		 @FormParam("productName") String productName, 
+		public String insertItem(@FormParam("productName") String productName, 
 		 @FormParam("owner") String owner, 
 		 @FormParam("description") String description, 
 		@FormParam("price") String price,
 		@FormParam("email") String email)
 		{ 
 			
-			String output = cartObj.insertItem(productId, productName, owner, description, price, email); 
+			String output = cartObj.insertItem(productName, owner, description, price, email); 
 			return output; 
 			
 		}
 		
 		@PUT
 		@Path("/")
-		@Consumes(MediaType.APPLICATION_JSON)
+		@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 		@Produces(MediaType.TEXT_PLAIN)
-		public String updateItem(String itemData){
-			
+		public String updateUser(@FormParam("productId") String productId,
+				 @FormParam("productName") String productName,
+				 @FormParam("owner") String owner,
+				 @FormParam("description") String description,
+				 @FormParam("price") String price,
+				 @FormParam("email") String email)
+				 
+		{	
 		//Convert the input string to a JSON object
-		 JsonObject itemObject = new JsonParser().parse(itemData).getAsJsonObject();
+		//JsonObject itemObject = new JsonParser().parse(itemData).getAsJsonObject();
 		 
 		//Read the values from the JSON object
-		 String project_id = itemObject.get("project_id").getAsString();
-		 String project_name = itemObject.get("project_name").getAsString();
-		 String owner = itemObject.get("owner").getAsString();
-		 String description = itemObject.get("description").getAsString();
-		 String price = itemObject.get("price").getAsString();
-		 String email = itemObject.get("email").getAsString();
+		// String project_id = itemObject.get("project_id").getAsString();
+		// String project_name = itemObject.get("project_name").getAsString();
+		// String owner = itemObject.get("owner").getAsString();
+		// String description = itemObject.get("description").getAsString();
+		// String price = itemObject.get("price").getAsString();
+		// String email = itemObject.get("email").getAsString(); 
 		 
-		 String output = cartObj.updateItem(project_id, project_name, owner, description, price ,email );
+		 String output = cartObj.updateItem(productId, productName, owner, description, price ,email );
 		
 		 return output;
 		}
@@ -74,8 +79,8 @@ public class CartService {
 		 Document doc = Jsoup.parse(itemData, "", Parser.xmlParser());
 
 		//Read the value from the element <itemID>
-		 String project_id = doc.select("project_id").text();
-		 String output = cartObj.deleteItem(project_id);
+		 String productId = doc.select("productId").text();
+		 String output = cartObj.deleteItem(productId);
 		
 		 return output;
 		}

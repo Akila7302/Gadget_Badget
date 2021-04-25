@@ -23,7 +23,7 @@ public class Cart {
 		 return con;
 		 } 
 	
-	 public String insertItem(String proId,String proName, String owner, String description, String price ,String email) 
+	 public String insertItem(String proName, String owner, String description, String price ,String email) 
 	 { 
 	 String output = ""; 
 		 try
@@ -35,7 +35,7 @@ public class Cart {
 		 String query = " insert into cart (`productId`,`productName`,`owner`,`description`,`price`,`email`)"+ " values (?, ?, ?, ?, ?, ?)"; 
 		 PreparedStatement preparedStmt = con.prepareStatement(query); 
 		 // binding values
-		 preparedStmt.setInt(1, Integer.parseInt(proId)); 
+		 preparedStmt.setInt(1, 0); 
 		 preparedStmt.setString(2, proName); 
 		 preparedStmt.setString(3, owner); 
 		 preparedStmt.setString(4, description); 
