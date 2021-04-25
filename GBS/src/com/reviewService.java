@@ -28,9 +28,9 @@ public class reviewService {
 	@GET
 	@Path("/") 
 	@Produces(MediaType.TEXT_HTML) 
-	public String readItems() 
+	public String readreview() 
 	 { 
-		 return Obj.readItems();
+		 return Obj.readreview();
 	 } 
 	
 	
@@ -40,12 +40,12 @@ public class reviewService {
 	@Path("/") 
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED) 
 	@Produces(MediaType.TEXT_PLAIN) 
-	public String insertItem
+	public String insertreview
 	(@FormParam("project_id") String project_id, 
 	@FormParam("review") String review,
 	@FormParam("acceptance") String acceptance)
 	{ 
-	 String output = Obj.insertItem(project_id, review, acceptance); 
+	 String output = Obj.insertreview(project_id, review, acceptance); 
 	return output; 
 	}
 
@@ -55,22 +55,23 @@ public class reviewService {
 	@Path("/") 
 	@Consumes(MediaType.APPLICATION_JSON) 
 	@Produces(MediaType.TEXT_PLAIN) 
-	public String updateItem(String itemData) 
+	public String updatereview(String reviewData) 
 	
 	
 	{ 
 		
 	     //Convert the input string to a JSON object 
 		
-	 JsonObject itemObject = new JsonParser().parse(itemData).getAsJsonObject();
+	 JsonObject reviewObject = new JsonParser().parse(reviewData).getAsJsonObject();
+	 
 	     //Read the values from the JSON object
 	 
-	 String review_id = itemObject.get("review_id").getAsString(); 
-		 String project_id = itemObject.get("project_id").getAsString(); 
-		 String review = itemObject.get("review").getAsString();
-		 String acceptance = itemObject.get("acceptance").getAsString();
+	 String review_id = reviewObject.get("review_id").getAsString(); 
+		 String project_id = reviewObject.get("project_id").getAsString(); 
+		 String review = reviewObject.get("review").getAsString();
+		 String acceptance = reviewObject.get("acceptance").getAsString();
 		 
-		 String output = Obj.updateItem(review_id,project_id,review, acceptance); 
+		 String output = Obj.updatereview(review_id,project_id,review, acceptance); 
 		return output; 
 		}
 		
@@ -79,14 +80,17 @@ public class reviewService {
 		@Path("/") 
 		@Consumes(MediaType.APPLICATION_XML) 
 		@Produces(MediaType.TEXT_PLAIN) 
-		public String deleteItem(String itemData) 
+		public String deletereview(String reviewData) 
 		{ 
+			
 		//Convert the input string to an XML document
-		 Document doc = Jsoup.parse(itemData, "", Parser.xmlParser()); 
+			
+		 Document doc = Jsoup.parse(reviewData, "", Parser.xmlParser()); 
 		 
-		//Read the value from the element <itemID>
+		//Read the value from the element <review_id>
+		 
 		 String projectID = doc.select("review_id").text(); 
-		 String output = Obj.deleteItem(projectID); 
+		 String output = Obj.deletereview(projectID); 
 		return output; 
 		}
 

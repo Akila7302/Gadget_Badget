@@ -5,7 +5,11 @@ import java.sql.*;
 
 public class product 
 
-{ //A common method to connect to the DB
+{
+	
+	//A common method to connect to the DB
+	
+	
 	private Connection connect() 
 	 { 
 		 Connection con = null; 
@@ -14,6 +18,7 @@ public class product
 		 Class.forName("com.mysql.jdbc.Driver"); 
 		 
 		 //Provide the correct details: DBServer/DBName, username, password 
+		 
 		 con = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/paf", "root", ""); 
 		 } 
 		 catch (Exception e) 
@@ -21,7 +26,7 @@ public class product
 		 return con; 
 	 } 
 	
-	public String insertItem(String name, String owner,String description, String price,String email ) 
+	public String insertproduct(String name, String owner,String description, String price,String email ) 
 	
 	{ 
 		 String output = ""; 
@@ -30,17 +35,23 @@ public class product
 		 Connection con = connect(); 
 		 if (con == null) 
 		 {return "Error while connecting to the database for inserting."; } 
-		 // create a prepared statement
+		 
+		 // create a prepared statement 
+		 
 		 String query = " insert into product (`product_id`,`product_name`,`owner`,`description`,`price`,`email`)"+ " values (?, ?, ?, ?, ?, ?)"; 
 		 PreparedStatement preparedStmt = con.prepareStatement(query); 
+		 
 		 // binding values
+		 
 		 preparedStmt.setInt(1, 0); 
 		 preparedStmt.setString(2, name); 
 		 preparedStmt.setString(3, owner); 
 		 preparedStmt.setString(4, description); 
 		 preparedStmt.setDouble(5, Double.parseDouble(price)); 
 		 preparedStmt.setString(6, email); 
-		// execute the statement3
+		 
+		// execute the statement
+		 
 		 preparedStmt.execute(); 
 		 con.close(); 
 		 output = "Inserted successfully"; 
@@ -53,7 +64,7 @@ public class product
 		 return output; 
 	 } 
 	
-	public String readItems() 
+	public String readproduct() 
 	
 	{ 
 		 String output = ""; 
@@ -62,7 +73,11 @@ public class product
 		 Connection con = connect(); 
 		 if (con == null) 
 		 {return "Error while connecting to the database for reading."; } 
+		 
+		 
 		 // Prepare the html table to be displayed
+		 
+		 
 		 output = "<table border='1'><tr><th>product_name</th><th>owner</th>" +
 				 "<th>Product Description</th>" + 
 				 "<th>price</th>"+
@@ -72,7 +87,11 @@ public class product
 		 String query = "select * from product"; 
 		 Statement stmt = con.createStatement(); 
 		 ResultSet rs = stmt.executeQuery(query); 
+		 
+		 
 		 // iterate through the rows in the result set
+		 
+		 
 		 while (rs.next()) 
 		
 		 { 
@@ -83,13 +102,17 @@ public class product
 		 String description = rs.getString("description"); 
 		 String price = Double.toString(rs.getDouble("price")); 
 		 String email = rs.getString("email"); 
+		 
 		 // Add into the html table
+		 
 		 output += "<tr><td>" + product_name + "</td>"; 
 		 output += "<td>" + owner + "</td>"; 
 		 output += "<td>" + description + "</td>"; 
 		 output += "<td>" + price+ "</td>"; 
 		 output += "<td>" + email+ "</td>"; 
+		 
 		 // buttons
+		 
 		 output += "<td><input name='btnUpdate' type='button' value='Update' class='btn btn-secondary'></td>"
 		 + "<td><form method='post' action='items.jsp'>"
 		+ "<input name='btnRemove' type='submit' value='Remove' class='btn btn-danger'>"
@@ -97,7 +120,10 @@ public class product
 		 + "'>" + "</form></td></tr>"; 
 		 } 
 		 con.close(); 
+		 
+		 
 		 // Complete the html table
+		 
 		 output += "</table>"; 
 		 } 
 		 catch (Exception e) 
@@ -112,7 +138,7 @@ public class product
 	
 	
 	
-	public String updateItem(String product_id, String product_name, String owner, String description ,String price, String email)
+	public String updateproduct(String product_id, String product_name, String owner, String description ,String price, String email)
 	          
 	
 	{ 
@@ -122,10 +148,14 @@ public class product
 		 Connection con = connect(); 
 		 if (con == null) 
 		 {return "Error while connecting to the database for updating."; } 
+		 
 		 // create a prepared statement
+		 
 		 String query = "UPDATE product SET  product_name=? , owner=?, description = ?, price=?, email=? WHERE  product_id=?"; 
 		 PreparedStatement preparedStmt = con.prepareStatement(query); 
+		 
 		 // binding values
+		 
 		 
 		 preparedStmt.setString(1,product_name); 
 		 preparedStmt.setString(2,owner); 
@@ -133,7 +163,9 @@ public class product
 		 preparedStmt.setDouble(4, Double.parseDouble(price)); 
 		 preparedStmt.setString(5,email); 
 		 preparedStmt.setInt(6, Integer.parseInt(product_id)); 
+		 
 		 // execute the statement
+		 
 		 preparedStmt.execute(); 
 		 con.close(); 
 		 output = "Updated successfully"; 
@@ -146,7 +178,7 @@ public class product
 		 return output; 
 	 } 
 	
-	public String deleteItem(String product_id) 
+	public String deleteproduct(String product_id) 
 	
 	
 	{ 
@@ -156,12 +188,18 @@ public class product
 		 Connection con = connect(); 
 		 if (con == null) 
 		 {return "Error while connecting to the database for deleting."; } 
+		 
 		 // create a prepared statement
+		 
 		 String query = "delete from product where product_id=?"; 
 		 PreparedStatement preparedStmt = con.prepareStatement(query); 
+		 
 		 // binding values
+		 
 		 preparedStmt.setInt(1, Integer.parseInt(product_id)); 
-		 // execute the statement
+		 
+		 // execute the statement ..
+		 
 		 preparedStmt.execute(); 
 		 con.close(); 
 		 output = " Deleted successfully "; 

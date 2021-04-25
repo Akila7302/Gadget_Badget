@@ -34,7 +34,7 @@ public class review {
 	
 	//Insert items to table
 	
-	public String insertItem(String project_id,String review, String acceptance) 
+	public String insertreview(String project_id,String review, String acceptance) 
 	 { 
 		 String output = ""; 
 		 try
@@ -45,25 +45,28 @@ public class review {
 		 
 		 
 		 // create a prepared statement
+		 
 		 String query = " insert into review (`review_id`,`project_id`,`review`,`acceptance`)" + " values ( ?, ?, ?, ?)"; 
 		 PreparedStatement preparedStmt = con.prepareStatement(query); 
 		 
 		 
 		 // binding values 
+		 
 		 preparedStmt.setInt(1, 0);
 		 preparedStmt.setInt(2, Integer.parseInt(project_id));
          preparedStmt.setString(3, review);
 		 preparedStmt.setString(4, acceptance);
 		 
 		 
-		// execute the statement3
+		// execute the statement
+		 
 		 preparedStmt.execute(); 
 		 con.close(); 
 		 output = "Inserted successfully"; 
 		 } 
 		 catch (Exception e) 
 		 { 
-		 output = "Error while inserting the item."; 
+		 output = "Error while inserting the review."; 
 		 System.err.println(e.getMessage()); 
 		 } 
 		 return output; 
@@ -77,9 +80,9 @@ public class review {
 	
 	
 	
-	//retrieve items from the table
+	//retrieve reviews from the table
 	
-	public String readItems() 
+	public String readreview() 
 	{ 
 		 String output = ""; 
 		 try
@@ -90,6 +93,8 @@ public class review {
 		 
 		 
 		 // Prepare the html table to be displayed
+		 
+		 
 		 output = "<table border='1'><tr><th>Project _id</th>"+
 		 "<th>review</th>"+
 		 "<th>acceptance</th></tr>"; 
@@ -100,14 +105,15 @@ public class review {
 		 
 		 
 		 // iterate through the rows in the result set
+		 
 		 while (rs.next()) 
 		 { 
 		 String project_id = Integer.toString(rs.getInt("project_id")); 
 		 String review = rs.getString("review");
 		 String acceptance = rs.getString("acceptance");
 		 
-		 
 		 // Add into the html table 
+		 
 		 output += "<tr><td>" + project_id+ "</td>"; 
 		 output += "<td>" + review + "</td>";
 		 output += "<td>" + acceptance + "</td>";
@@ -120,11 +126,12 @@ public class review {
 		 
 		 
 		 // Complete the html table
+		 
 		 output += "</table>"; 
 		 } 
 		 catch (Exception e) 
 		 { 
-		 output = "Error while reading the items."; 
+		 output = "Error while reading the reviews."; 
 		 System.err.println(e.getMessage()); 
 		 } 
 		 return output; 
@@ -139,7 +146,7 @@ public class review {
 	
 	//update items in the table 
 	
-	public String updateItem(String review_id, String project_id , String review, String acceptance)
+	public String updatereview(String review_id, String project_id , String review, String acceptance)
 	 { 
 		 String output = ""; 
 		 try
@@ -150,11 +157,13 @@ public class review {
 		 
 		 
 		 // create a prepared statement
+		 
 		 String query = "UPDATE review SET project_id=? ,review=?,acceptance=? WHERE review_id=?"; 
 		 PreparedStatement preparedStmt = con.prepareStatement(query); 
 		 
 		 
 		 // binding values
+		 
 		 preparedStmt.setInt(1, Integer.parseInt(project_id));
 		 preparedStmt.setString(2, review); 
 		 preparedStmt.setString(3, acceptance); 
@@ -162,13 +171,14 @@ public class review {
 		 
 		 
 		 // execute the statement
+		 
 		 preparedStmt.execute(); 
 		 con.close(); 
 		 output = "Updated successfully"; 
 		 } 
 		 catch (Exception e) 
 		 { 
-		 output = "Error while updating the item."; 
+		 output = "Error while updating the review."; 
 		 System.err.println(e.getMessage()); 
 		 } 
 		 return output; 
@@ -179,9 +189,9 @@ public class review {
 	
 	
 	
-	//delete items from table
+	//delete reviews from table
 	
-	public String deleteItem(String ID) 
+	public String deletereview(String ID) 
 	 { 
 		 String output = ""; 
 		 try
@@ -192,22 +202,25 @@ public class review {
 		 
 		 
 		 // create a prepared statement
+		 
 		 String query = "delete from review where review_id=?"; 
 		 PreparedStatement preparedStmt = con.prepareStatement(query); 
 		 
 		 
 		 // binding values
+		 
 		 preparedStmt.setInt(1, Integer.parseInt(ID)); 
 		 
 		 
 		 // execute the statement
+		 
 		 preparedStmt.execute(); 
 		 con.close(); 
 		 output = "Deleted successfully"; 
 		 } 
 		 catch (Exception e) 
 		 { 
-		 output = "Error while deleting the item."; 
+		 output = "Error while deleting the review."; 
 		 System.err.println(e.getMessage()); 
 		 } 
 		 return output; 

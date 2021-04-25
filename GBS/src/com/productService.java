@@ -16,13 +16,13 @@ import org.jsoup.nodes.Document;
 @Path("/products") 
 public class productService 
 { 
-	 product itemObj = new product(); 
+	 product productObj = new product(); 
 	@GET
 	@Path("/") 
 	@Produces(MediaType.TEXT_HTML) 
-	public String readItems() 
+	public String readproduct() 
 	 { 
-		 return itemObj.readItems();
+		 return productObj.readproduct();
 	 } 
 	
 	
@@ -32,13 +32,13 @@ public class productService
 	@Path("/") 
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED) 
 	@Produces(MediaType.TEXT_PLAIN) 
-	public String insertItem(@FormParam("product_name") String product_name, 
+	public String insertproduct(@FormParam("product_name") String product_name, 
 	 @FormParam("owner") String owner, 
 	 @FormParam("description") String description, 
 	 @FormParam("price") String price, 
 	 @FormParam("email") String email) 
 	{ 
-	 String output = itemObj.insertItem(product_name, owner,description, price, email); 
+	 String output = productObj.insertproduct(product_name, owner,description, price, email); 
 	return output; 
 	}
 
@@ -48,18 +48,22 @@ public class productService
 	@Path("/") 
 	@Consumes(MediaType.APPLICATION_JSON) 
 	@Produces(MediaType.TEXT_PLAIN) 
-	public String updateItem(String itemData) 
+	public String updateproduct(String productData) 
 	{ 
+		
 	//Convert the input string to a JSON object 
-	 JsonObject itemObject = new JsonParser().parse(itemData).getAsJsonObject(); 
+		
+	 JsonObject productObject = new JsonParser().parse(productData).getAsJsonObject(); 
+	 
 	//Read the values from the JSON object
-	 String product_id = itemObject.get("product_id").getAsString(); 
-	 String product_name= itemObject.get("product_name").getAsString(); 
-	 String owner = itemObject.get("owner").getAsString();
-	 String description = itemObject.get("description").getAsString(); 
-	 String price = itemObject.get("price").getAsString(); 
-	 String email = itemObject.get("email").getAsString(); 
-	 String output = itemObj.updateItem(product_id,product_name, owner,description, price, email); 
+	 
+	 String product_id = productObject.get("product_id").getAsString(); 
+	 String product_name= productObject.get("product_name").getAsString(); 
+	 String owner = productObject.get("owner").getAsString();
+	 String description = productObject.get("description").getAsString(); 
+	 String price = productObject.get("price").getAsString(); 
+	 String email = productObject.get("email").getAsString(); 
+	 String output = productObj.updateproduct(product_id,product_name, owner,description, price, email); 
 	return output; 
 	}
 	
@@ -68,14 +72,17 @@ public class productService
 	@Path("/") 
 	@Consumes(MediaType.APPLICATION_XML) 
 	@Produces(MediaType.TEXT_PLAIN) 
-	public String deleteItem(String itemData) 
+	public String deleteproduct(String productData) 
 	{ 
-	//Convert the input string to an XML document
-	 Document doc = Jsoup.parse(itemData, "", Parser.xmlParser()); 
+		
+	      //Convert the input string to an XML document
+		
+	 Document doc = Jsoup.parse(productData, "", Parser.xmlParser()); 
 	 
-	//Read the value from the element <itemID>
+	     //Read the value from the element <project_id>
+	 
 	 String product_id = doc.select(" product_id ").text(); 
-	 String output = itemObj.deleteItem(product_id); 
+	 String output = productObj.deleteproduct(product_id); 
 	return output; 
 	}
 
